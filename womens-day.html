@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Women's Day, Shruthi</title>
+    <style>
+        :root {
+            --bg-peach: #fff5f5;
+            --bg-pink: #fff0f3;
+            --bg-cream: #fdf2f8;
+            --text-color: #4a4a4a;
+            --accent-color: #d63384;
+            --font-serif: 'Georgia', 'Times New Roman', serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-serif);
+            background: linear-gradient(135deg, var(--bg-peach) 0%, var(--bg-pink) 50%, var(--bg-cream) 100%);
+            color: var(--text-color);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        #app {
+            position: relative;
+            z-index: 10;
+            width: 90%;
+            max-width: 600px;
+            padding: 2rem;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 1.5s ease, transform 1.5s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        h1 {
+            font-weight: 400;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .large-text {
+            font-size: 3.5rem;
+            font-style: italic;
+            margin: 2rem 0;
+            color: var(--accent-color);
+            text-shadow: 0 0 15px rgba(214, 51, 132, 0.1);
+        }
+
+        .appreciation-line {
+            font-size: 1.2rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+            opacity: 0.8;
+        }
+
+        .final-greeting {
+            font-size: 2.2rem;
+            color: var(--accent-color);
+            margin-top: 2rem;
+        }
+
+        .sub-line {
+            font-size: 1rem;
+            opacity: 0.6;
+            margin-top: 1rem;
+        }
+
+        button {
+            background: transparent;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 0.8rem 2.5rem;
+            font-family: var(--font-serif);
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            margin-top: 2rem;
+            outline: none;
+        }
+
+        button:hover {
+            background: var(--accent-color);
+            color: white;
+            box-shadow: 0 5px 15px rgba(214, 51, 132, 0.2);
+        }
+
+        /* Floating Petals */
+        .petal {
+            position: absolute;
+            background-color: #ffc0cb;
+            border-radius: 150% 0 150% 0;
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 1;
+            animation: float 10s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(-10vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(110vh) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 1.4rem; }
+            .large-text { font-size: 2.8rem; }
+            .appreciation-line { font-size: 1.1rem; }
+            .final-greeting { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <div id="petals-container"></div>
+
+    <div id="app">
+        <!-- ACT 1 -->
+        <div id="act1">
+            <h1 id="line1" class="fade-in">Today is about celebrating women.</h1>
+            <h1 id="line2" class="fade-in">But this page is about one in particular.</h1>
+            <div id="line3" class="fade-in large-text">You.</div>
+            <button id="continue-btn" class="fade-in">Continue</button>
+        </div>
+
+        <!-- ACT 2 -->
+        <div id="act2" class="hidden">
+            <div class="appreciation-line fade-in">You’re stronger than you think you are.</div>
+            <div class="appreciation-line fade-in">You make ordinary days feel a little brighter.</div>
+            <div class="appreciation-line fade-in">You care about people more than you let people see.</div>
+            <div class="appreciation-line fade-in">The way you handle life quietly says a lot about who you are.</div>
+            <div class="appreciation-line fade-in">Getting to know you is something I’m genuinely grateful for.</div>
+        </div>
+
+        <!-- ACT 3 -->
+        <div id="act3" class="hidden">
+            <h1 class="fade-in">Today is about celebrating women…</h1>
+            <h1 class="fade-in">And you’re someone worth celebrating.</h1>
+            <div class="fade-in final-greeting">Happy Women's Day, Shruthi 🌸</div>
+            <div class="fade-in sub-line">Keep being exactly who you are.</div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const act1 = document.getElementById('act1');
+            const act2 = document.getElementById('act2');
+            const act3 = document.getElementById('act3');
+            const continueBtn = document.getElementById('continue-btn');
+
+            // Create floating petals
+            const petalsContainer = document.getElementById('petals-container');
+            for (let i = 0; i < 25; i++) {
+                createPetal();
+            }
+
+            function createPetal() {
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                const size = Math.random() * 15 + 10;
+                petal.style.width = size + 'px';
+                petal.style.height = size + 'px';
+                petal.style.left = Math.random() * 100 + 'vw';
+                petal.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                petal.style.animationDelay = (Math.random() * 10) + 's';
+                petal.style.backgroundColor = ['#ffc0cb', '#ffb6c1', '#fff0f5'][Math.floor(Math.random() * 3)];
+                petalsContainer.appendChild(petal);
+            }
+
+            // ACT 1 Sequence
+            setTimeout(() => {
+                document.getElementById('line1').classList.add('visible');
+            }, 500);
+
+            setTimeout(() => {
+                document.getElementById('line2').classList.add('visible');
+            }, 2000);
+
+            setTimeout(() => {
+                document.getElementById('line3').classList.add('visible');
+            }, 3500);
+
+            setTimeout(() => {
+                continueBtn.classList.add('visible');
+            }, 4500);
+
+            // Transition to ACT 2
+            continueBtn.addEventListener('click', () => {
+                act1.style.opacity = '0';
+                act1.style.transition = 'opacity 1s ease';
+                
+                setTimeout(() => {
+                    act1.classList.add('hidden');
+                    act2.classList.remove('hidden');
+                    
+                    const lines = act2.querySelectorAll('.appreciation-line');
+                    lines.forEach((line, index) => {
+                        setTimeout(() => {
+                            line.classList.add('visible');
+                        }, index * 2000);
+                    });
+
+                    setTimeout(() => {
+                        // Automatically transition to Act 3 after a delay
+                        setTimeout(() => {
+                            transitionToAct3();
+                        }, 4000);
+                    }, lines.length * 2000);
+                }, 1000);
+            });
+
+            function transitionToAct3() {
+                act2.style.opacity = '0';
+                act2.style.transition = 'opacity 1s ease';
+
+                setTimeout(() => {
+                    act2.classList.add('hidden');
+                    act3.classList.remove('hidden');
+                    
+                    const elements = act3.children;
+                    Array.from(elements).forEach((el, index) => {
+                        setTimeout(() => {
+                            el.classList.add('visible');
+                        }, index * 2500);
+                    });
+                }, 1000);
+            }
+        });
+    </script>
+</body>
+</html>
